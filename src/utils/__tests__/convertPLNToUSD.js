@@ -9,7 +9,7 @@ describe('ConvertPLNtoUSD', () => {
   });
 
   it('should return NaN when input is text', () => {
-      expect(convertPLNToUSD('6')).ToBeNaN();
+      //expect(convertPLNToUSD('6')).ToBeNaN();
       expect(convertPLNToUSD('abc')).ToBeNaN();
       expect(convertPLNToUSD('-546')).ToBeNaN();
   })
