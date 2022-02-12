@@ -9,8 +9,25 @@ describe('ConvertPLNtoUSD', () => {
   });
 
   it('should return NaN when input is text', () => {
-      //expect(convertPLNToUSD('6')).ToBeNaN();
-      expect(convertPLNToUSD('abc')).ToBeNaN();
-      expect(convertPLNToUSD('-546')).ToBeNaN();
+      expect(convertPLNToUSD('6')).toBeNaN();
+      expect(convertPLNToUSD('abc')).toBeNaN();
+      expect(convertPLNToUSD('-546')).toBeNaN();
+  });
+
+  it('should return NaN when input is empty', () => {
+    expect(convertPLNToUSD()).toBeNaN();
+  });
+
+  it('should return Error when input is not a string or number', () => {
+    expect(convertPLNToUSD({})).toBe('Error');
+    expect(convertPLNToUSD([])).toBe('Error');
+    expect(convertPLNToUSD(null)).toBe('Error');
+    expect(convertPLNToUSD(function() {})).toBe('Error');
+  });
+
+  it('should return zero when input is lower than zero', () => {
+    expect(convertPLNToUSD(-1)).toBe('$0.00');
+    expect(convertPLNToUSD(-30)).toBe('$0.00');
+    expect(convertPLNToUSD(-256)).toBe('$0.00');
   })
 });
