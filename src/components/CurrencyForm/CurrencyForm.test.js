@@ -41,11 +41,9 @@ describe('Component CurrencyForm', () => {
       cleanup()
     }
     expect(action).toHaveBeenCalledTimes(testCases.length);
-    expect(action).toHaveBeenCalledWith( [
-      { amount: 100, from: 'PLN', to: 'USD' },
-      { amount: 20, from: 'USD', to: 'PLN' },
-      { amount: 200, from: 'PLN', to: 'USD' },
-      { amount: 345, from: 'USD', to: 'PLN' },
-    ]);
+    expect(action).toHaveBeenCalledWith({ amount: 100, from: 'PLN', to: 'USD' });
+    expect(action).toHaveBeenCalledWith({ amount: 20, from: 'USD', to: 'PLN' });
+    expect(action).toHaveBeenCalledWith({ amount: 200, from: 'PLN', to: 'USD' });
+    expect(action).toHaveBeenCalledWith({ amount: 345, from: 'USD', to: 'PLN' });
   });
 });
