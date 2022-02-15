@@ -21,6 +21,22 @@ describe('Component ResultBox', () => {
             expect(output).toHaveTextContent(testObj.expectedText);       
             cleanup()
         }
+    });       
+
+    it('should render proper info about conversion when USD -> PLN', () => {
+        const testCases = [
+            { props: { amount: 100, from: 'USD', to: 'PLN' }, expectedText: '$100.00 = PLN 350.00' },
+            { props: { amount: 20, from: 'USD', to: 'PLN' }, expectedText: '$20.00 = PLN 70.00' },
+            { props: { amount: 200, from: 'USD', to: 'PLN' }, expectedText: '$200.00 = PLN 700.00' },
+            { props: { amount: 345, from: 'USD', to: 'PLN' }, expectedText: '$345.00 = PLN 1,207.50' },
+        ];
+
+        for(let testObj of testCases) {
+            render(<ResultBox {...testObj.props} />)
+            const output = screen.getByTestId('to-format');
+            expect(output).toHaveTextContent(testObj.expectedText);       
+            cleanup()
+        }
     });
 
     it('should return the same value for the same currencies', () => {
