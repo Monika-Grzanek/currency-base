@@ -7,32 +7,32 @@ describe('Component ResultBox', () => {
         render(<ResultBox from="PLN" to="USD" amount={100} />);
     });
 
-    /*it('should render proper info about conversion when PLN -> USD', () => {
-        //const action = jest.fn();
+    it('should render proper info about conversion when PLN -> USD', () => {
         const testCases = [
-            { amount: '100', from: 'PLN', to: 'USD' },
-            { amount: '20', from: 'PLN', to: 'USD' },
-            { amount: '200', from: 'PLN', to: 'USD' },
-            { amount: '345', from: 'PLN', to: 'USD' },
-          ];
+            { props: { amount: 100, from: 'PLN', to: 'USD' }, expectedText: 'PLN 100.00 = $28.57' },
+            { props: { amount: 20, from: 'PLN', to: 'USD' }, expectedText: 'PLN 20.00 = $5.71' },
+            { props: { amount: 200, from: 'PLN', to: 'USD' }, expectedText: 'PLN 200.00 = $57.14' },
+            { props: { amount: 345, from: 'PLN', to: 'USD' }, expectedText: 'PLN 345.00 = $98.57' },
+        ];
 
         for(let testObj of testCases) {
-
-            render(<ResultBox  testObj={testObj} />)
-            //cleanup()
-            
+            render(<ResultBox {...testObj.props} />)
+            const output = screen.getByTestId('to-format');
+            expect(output).toHaveTextContent(testObj.expectedText);       
+            cleanup()
         }
-        const output = screen.getByTestId('to-format');
-        expect(output).toHaveTextContent('PLN 100.00 = $28.57');       
-        expect(output).toHaveTextContent('PLN 20.00 = $5.71');
-        expect(output).toHaveTextContent('PLN 200.00 = $57.14');
-        expect(output).toHaveTextContent('PLN 345.00 = $98.57');
-        
-    })*/
+    });
 
-    it('should return the same value with the same currencies', () => {
-        render(<ResultBox from="USD" to="USD" amount={100} />);
-        const output = screen.getByTestId('to-format');
-        expect(output).toHaveTextContent('$100.00 = $100.00');
+    it('should return the same value for the same currencies', () => {
+        const testCases = [
+            { props: { amount: 100, from: 'PLN', to: 'PLN' }, expectedText: 'PLN 100.00 = PLN 100.00' },
+            { props: { amount: 100, from: 'USD', to: 'USD' }, expectedText: '$100.00 = $100.00' }
+        ];
+        for(let testObj of testCases) {
+            render(<ResultBox {...testObj.props} />)
+            const output = screen.getByTestId('to-format');
+            expect(output).toHaveTextContent(testObj.expectedText);
+            cleanup()
+        }
     })
 })
